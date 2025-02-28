@@ -67,3 +67,6 @@ def login(request):
         return JsonResponse({'status': 'error', 'message': 'No face detected in the image.'})
     
     return render(request, 'login.html')
+
+def home(request):
+    return render(request, 'home.html')
