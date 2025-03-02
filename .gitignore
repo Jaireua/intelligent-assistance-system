@@ -1,2 +1,12 @@
 # Virtual environment
 venv
+
+# Cache
+accounts/__pycache__
+face_auth/__pycache__
+
+# Migrations
+accounts/migrations/
+
+# User images
+user_faces/

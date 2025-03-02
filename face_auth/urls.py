@@ -1,8 +1,9 @@
 """
-URL configuration for face_auth project.
+URL configuration for the face_auth project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.1/topics/http/urls/
+
 Examples:
 Function views
     1. Add an import:  from my_app import views
@@ -19,8 +20,15 @@ from django.urls import path
 from accounts import views
 
 urlpatterns = [
+    # Django admin panel
     path('admin/', admin.site.urls),
+    
+    # Facial recognition registration page
     path('register/', views.register, name='register'),
+    
+    # Facial recognition login page
     path('login/', views.login, name='login'),
+    
+    # Home/landing page
     path('', views.home, name='home'),
 ]

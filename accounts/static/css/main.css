@@ -1,4 +1,4 @@
-/*General styles*/
+/* Estilos generales */
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f7fa;
@@ -6,7 +6,7 @@ body {
     padding: 0;
 }
 
-.register-container {
+.container {
     max-width: 400px;
     margin: 50px auto;
     padding: 30px;
@@ -22,6 +22,7 @@ h2 {
     font-size: 24px;
 }
 
+/* Estilos para formularios (login y registro) */
 input[type="text"] {
     width: 100%;
     padding: 12px;
@@ -88,9 +89,29 @@ button[type="submit"]:hover {
     font-size: 14px;
 }
 
+/* Estilos para la página de inicio */
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Estilos responsivos */
 @media (max-width: 480px) {
-    .register-container {
+    .container {
         padding: 20px;
         width: 90%;
     }
-}
+} 
