@@ -25,10 +25,10 @@ def detectar_emocion(landmarks, width, height):
     if mouth_ratio < 0.27: # umbral ajustablre
         return "Feliz"
     else:
-        return "Poker Face"
+        return "Triste"
 
 
-cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(0)
 
 while cap.isOpened():
     ret, frame = cap.read()
