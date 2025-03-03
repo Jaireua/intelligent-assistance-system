@@ -3,7 +3,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 # Define the data models for the application
-class UserImage(models.Model):
+class UserImages(models.Model):
     """
     Model for storing facial images of users.
     

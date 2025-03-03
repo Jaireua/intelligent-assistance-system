@@ -4,7 +4,7 @@ import base64
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.core.files.base import ContentFile
-from .models import UserImage, User
+from .models import UserImages, User
 import os
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
@@ -30,7 +30,7 @@ def register(request):
             # Save the user and face image to the database
             user = User(username=username)
             user.save()
-            user_image = UserImage.objects.create(user=user, face_image=face_image)
+            user_image = UserImages.objects.create(user=user, face_image=face_image)
             
             return JsonResponse({'status': 'success', 'message': 'Registered successfully!'})
         except Exception as e:
@@ -57,7 +57,7 @@ def login(request):
 
         # Convert base64 image data to a file
         face_image_data = face_image_data.split(",")[1]
-        uploaded_image = ContentFile(base64.b64decode(face_image_data), name=f'{username}_face.jpg')
+        uploaded_image = ContentFile(base64.b64decode(face_image_data), name=f'{username}.jpg')
 
         # Compare the uploaded face image with the stored face image
         uploaded_face_image = face_recognition.load_image_file(uploaded_image)
@@ -65,7 +65,7 @@ def login(request):
 
         if uploaded_face_encoding:
             uploaded_face_encoding = uploaded_face_encoding[0]
-            user_image = UserImage.objects.filter(user = user).first()
+            user_image = UserImages.objects.filter(user = user).first()
             stored_face_image = face_recognition.load_image_file(user_image.face_image.path)
             stored_face_encoding = face_recognition.face_encodings(stored_face_image)[0]
 
