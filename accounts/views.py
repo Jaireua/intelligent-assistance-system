@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.forms import UserCreationForm # import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.db import IntegrityError
@@ -17,13 +17,6 @@ def signup(request):
                 user = User.objects.create_user(request.POST["username"], password=request.POST["password1"])
                 user.save()
                 return HttpResponse("User created successfully.")
-                #login(request, user)
-                return redirect('home')
             except IntegrityError:
                 return render(request, 'signup.html', {'form': UserCreationForm, "error": "Username already exists."})
         return  HttpResponse("Passwords do not match.")
-        #return render(request, 'signup.html', {'form': UserCreationForm, "error": "Passwords do not match."})
-
-    
-
-    
