@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirecT
+from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login
