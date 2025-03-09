@@ -32,8 +32,8 @@ def signin(request):
             return render(request, 'signin.html', {'form': AuthenticationForm, "error": "Invalid credentials."})
         else:
             login(request, user)
-            return redirect('tasks')
+            return redirect('/admon/')
 
-def tasks(request):
-    return render(request, 'tasks.html')
+def admon(request):
+    return render(request, 'admon.html')
 
