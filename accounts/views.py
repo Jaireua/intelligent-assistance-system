@@ -12,7 +12,7 @@ import face_recognition
 import base64
 
 # Create your views here.
-def home(request):
+def signin(request):
     if request.method == "POST":
         username = request.POST["username"]
         face_image_data = request.POST["face_image"]
@@ -48,14 +48,13 @@ def home(request):
 
         return JsonResponse({"status": "error", "message": "Face not detected."})
 
-    return render(request, 'home.html')
+    return render(request, 'signin.html')
 
 @login_required
 def admon(request):
     return render(request, 'admon.html')
 
-@login_required
-def register(request):
+def signup(request):
     if request.method == "POST":
         username = request.POST['username']
         face_image_data = request.POST['face_image']
@@ -73,7 +72,7 @@ def register(request):
         except IntegrityError:
             return JsonResponse({"message": "Username already exists."})
         
-    return render(request, 'register.html')
+    return render(request, 'signup.html')
 
 @login_required
 def signout(request):

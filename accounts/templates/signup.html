@@ -1,8 +1,6 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-
-<h2 class="text-center" style="margin-top: 30px;">User registration</h2>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -103,7 +101,7 @@
 </head>
 <body>
     <div class="register-container">
-        <h2>Register with Face Recognition</h2>
+        <h2>User Registration</h2>
         <form id="register-form">
             {% csrf_token %}
             <input type="text" id="username" name="username" placeholder="Username" required>
@@ -163,7 +161,7 @@
             const formData = new FormData(registerForm);
             formData.append('face_image', capturedImage);
 
-            const response = await fetch('/register/', {
+            const response = await fetch('/signup/', {
                 method: 'POST',
                 body: formData
             });
