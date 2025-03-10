@@ -5,8 +5,7 @@
 <h1>Admon</h1>
 
 <!-- Button logout -->
-<form action="/" method="POST" style="margin-bottom: 10px;">
-    {% csrf_token%}
+<form action="/signout" method="GET" style="margin-bottom: 10px;">
     <button type="submit">Logout</button>
 </form>
 
