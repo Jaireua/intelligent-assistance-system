@@ -3,6 +3,7 @@ venv
 
 # Cache
 accounts/__pycache__
+accounts/__init__
 face_auth/__pycache__
 
 # Migrations
