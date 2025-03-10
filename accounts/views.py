@@ -1,4 +1,5 @@
 # Import libraries
+from re import S
 from django.core.files.base import ContentFile
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
@@ -9,9 +10,44 @@ from django.db import IntegrityError
 import base64
 from django.http import JsonResponse
 from .models import UserImages
+import face_recognition
 
 # Create your views here.
 def home(request):
+    if request.method == "POST":
+        username = request.POST["username"]
+        face_image_data = request.POST["face_image"]
+
+        # Get the user by username
+        try:
+            user = User.objects.get(username=username)
+        except User.DoesNotExist:
+            return JsonResponse({"status": "error", "message": "User not found."})
+        
+        # Convert base64 image data to a file
+        face_image_data = face_image_data.split(',')[1]
+        uploaded_image = ContentFile(base64.b64decode(face_image_data), name=f'{username}.jpg')
+
+        # Compare the uploaded image with the registered image
+        uploaded_image = face_recognition.load_image_file(uploaded_image)
+        uploaded_face_encoding = face_recognition.face_encodings(uploaded_image)
+
+        if uploaded_face_encoding:
+            uploaded_face_encoding = uploaded_face_encoding[0]
+            user_image = UserImages.objects.filter(user=user).first()
+            stored_face_image = face_recognition.load_image_file(user_image.face_image.path)
+            stored_face_encoding = face_recognition.face_encodings(stored_face_image)[0]
+
+            print(stored_face_image, stored_face_encoding)
+            # Compare the faces
+            match = face_recognition.compare_faces([stored_face_encoding], uploaded_face_encoding)
+            if match[0]:
+                return JsonResponse({"status": "success", "message": "Login successfully.")
+            else:
+                return JsonResponse({"status": "error", "message": "Face does not match."})
+
+        return JsonResponse({"status": "error", "message": "Face not detected."})
+
     return render(request, 'home.html')
 
 def signup(request):
