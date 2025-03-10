@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, HttpResponse
+from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
@@ -18,10 +18,11 @@ def signup(request):
                 user = User.objects.create_user(request.POST["username"], password=request.POST["password1"])
                 user.save()
                 login(request, user)
-                return redirect('signin')
+                return redirect('/')
             except IntegrityError:
                 return render(request, 'signup.html', {'form': UserCreationForm, "error": "Username already exists."})
-        return  HttpResponse("Passwords do not match.")
+        else:
+            return render(request, 'signup.html', {'form': UserCreationForm, "error": "Passwords do not match."})
 
 def signin(request):
     if request.method == 'GET':
@@ -34,6 +35,13 @@ def signin(request):
             login(request, user)
             return redirect('/admon/')
 
+@login_required
 def admon(request):
     return render(request, 'admon.html')
+
+@login_required
+def register(request):
+    return render(request, 'register.html')
+
+
 

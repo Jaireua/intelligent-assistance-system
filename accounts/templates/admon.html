@@ -4,9 +4,16 @@
 
 <h1>Admon</h1>
 
-<!-- Options logaout -->
-<a href="{% url 'home' %}">Salir</a>
-<br><br>
+<!-- Button logout -->
+<form action="/" method="POST" style="margin-bottom: 10px;">
+    {% csrf_token %}
+    <button type="submit">Logout</button>
+</form>
+
+<!-- Button register user -->
+<form action="/register/" method="GET" style="margin-bottom: 10px;">
+    <button type="submit">Register User</button>
+</form>
 
 
 {% endblock %}

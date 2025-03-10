@@ -4,8 +4,13 @@
 
 <h2>Home</h2>
 <nav>
-    <a href="/signup/">Sign up</a><br>
-    <a href="/signin/">Sign in</a>
+    <form action="/signup/" method="GET">
+        <button type="submit">Sign up</button>
+    </form>
+    <br>
+    <form action="/signin/" method="GET">
+        <button type="submit">Sign in</button>
+    </form>
 </nav>
 
 {% endblock %}
