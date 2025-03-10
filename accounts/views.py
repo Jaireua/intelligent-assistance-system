@@ -1,5 +1,4 @@
 # Import libraries
-from re import S
 from django.core.files.base import ContentFile
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
@@ -7,10 +6,10 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
-import base64
 from django.http import JsonResponse
 from .models import UserImages
 import face_recognition
+import base64
 
 # Create your views here.
 def home(request):
