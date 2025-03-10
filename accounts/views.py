@@ -1,9 +1,14 @@
+# Import libraries
+from django.core.files.base import ContentFile
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
+import base64
+from django.http import JsonResponse
+from .models import UserImages
 
 # Create your views here.
 def home(request):
@@ -41,7 +46,23 @@ def admon(request):
 
 @login_required
 def register(request):
-    return render(request, 'register.html')
+    if request.method == "POST":
+        username = request.POST['username']
+        face_image_data = request.POST['face_image']
 
+        # Convert base64 image date to a file
+        face_image_data = face_image_data.split(',')[1]
+        face_image = ContentFile(base64.b64decode(face_image_data), name=f'{username}.jpg')
+
+        # Save the user and face image in the database
+        try:
+            user = User(username=username)
+            user.save()
+            user_image = UserImages.objects.create(user=user, face_image=face_image)
+            return JsonResponse({"message": "User registered successfully."})
+        except IntegrityError:
+            return JsonResponse({"message": "Username already exists."})
+        
+    return render(request, 'register.html')
 
 
