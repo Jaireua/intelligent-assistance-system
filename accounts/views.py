@@ -41,7 +41,8 @@ def home(request):
             # Compare the faces
             match = face_recognition.compare_faces([stored_face_encoding], uploaded_face_encoding)
             if match[0]:
-                return JsonResponse({"status": "success", "message": "Login successfully."})
+                login(request, user)
+                return JsonResponse({"status": "success", "message": "Login successfully.", "redirect": "/admon/"})
             else:
                 return JsonResponse({"status": "error", "message": "Face does not match."})
 

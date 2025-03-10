@@ -5,12 +5,12 @@
 <h2>Home</h2>
 <nav>
     <form action="/signup/" method="GET">
-        <button type="button">Sign up</button>
+        <button>Sign up</button>
 
     </form>
     <br>
     <form action="/signin/" method="GET">
-        <button type="button">Sign in</button>
+        <button>Sign in</button>
     </form>
 </nav>
 
@@ -183,8 +183,11 @@
             });
 
             const data = await response.json();
-            if (data.success) {
+            if (data.status === 'success') {
                 messageDiv.innerText = data.message || 'Login successful!';
+                if (data.redirect) {
+                    window.location.href = data.redirect;
+                }
             } else {
                 messageDiv.innerText = data.message || 'Login failed.';
             }
