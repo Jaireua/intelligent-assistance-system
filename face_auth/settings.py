@@ -25,8 +25,10 @@ SECRET_KEY = 'django-insecure-om-rw(o-t6s+osa86id0gw-osa-g4+#=67*kspp9t7k@eh2d61
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# Allow all hosts
 ALLOWED_HOSTS = ['*']
 
+# CSRF trusted origins
 CSRF_TRUSTED_ORIGINS = [
     'https://furnished-fellowship-guidance-plot.trycloudflare.com',
 ]

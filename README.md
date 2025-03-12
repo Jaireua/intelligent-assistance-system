@@ -28,9 +28,9 @@ A secure authentication system that uses facial recognition technology to verify
 
 ## Usage
 
-- Access the registration page at `/register/`
-- Access the login page at `/login/`
-- The home page is available at the root URL `/`
+- View signin page at `/`
+- View login page at `/signin/`
+- View admon page at the root URL `/admon/`
 
 ## Security Considerations
 
