@@ -1,3 +1,6 @@
+# Import libraries
 from django.shortcuts import render
 
-# Create your views here.
+# View signup
+def signup(request):
+    return render(request, 'signup.html') 
