@@ -7,9 +7,7 @@ user_faces/__pycache__
 # Migrations
 accounts/migrations/
 accounts/__pycache__
-accounts/__init__
 face_auth/migrations/
-face_auth/__init__
 face_auth/__pycache__
 
 
