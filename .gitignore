@@ -8,8 +8,8 @@ user_faces/__pycache__
 accounts/migrations/
 accounts/__init__
 face_auth/migrations/
-face_auth/migrations/
 face_auth/__init__
+face_auth/__pycache__
 
 
 # User images
