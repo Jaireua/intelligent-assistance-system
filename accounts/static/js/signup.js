@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
         .catch(err => {
             console.error('Error accessing the camera:', err);
             message.innerText = 'Camera not accessible. Please check your camera permissions.';
+            captureButton.disabled = true; // Disable capture button
         });
 
     // Capture image from the video stream
@@ -25,9 +26,16 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-        capturedImage = canvas.toDataURL('image/png');
-        message.innerText = 'Image captured successfully.';
+        const context = canvas.getContext('2d');
+        if (context) {
+            canvas.height = video.videoHeight; // Set canvas size
+            canvas.width = video.videoWidth;
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            capturedImage = canvas.toDataURL('image/png');
+            message.innerText = 'Image captured successfully.';
+        } else {
+            message.innerText = 'Error creating canvas context.';
+        }
     })
 
     //Handle form submission
@@ -41,12 +49,21 @@ document.addEventListener('DOMContentLoaded', function () {
         const formData = new FormData(signupForm);
         formData.append('face_image', capturedImage);
 
-        const response = await fetch('/signup/',{
-            method: 'POST',
-            body: formData
-        });
+        try {
+            const response = await fetch('/signup/',{
+                method: 'POST',
+                body: formData
+            });
 
-        const data = await response.json();
-        message.innerText = data.message || 'Signup failed.';
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const data = await response.json();
+            message.innerText = data.message || 'Signup failed.';
+        } catch (error) {
+            console.error('Error during signup:', error);
+            message.innerText = 'Signup failed. Please try again.';
+        }
     }
 });
